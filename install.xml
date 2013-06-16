@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="http://fustrate.com/dev/sources/Other/modification.xsl"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>kumnaa:hidefromunread</id>
+	<version>1.0.0</version>
+
+	<file name="$sourcedir/Recent.php">
+        <operation>
+            <search position="after"><![CDATA[// Don't bother to show deleted posts!]]></search>
+            <add><![CDATA[
+            	$hidden_boards = explode(",", $modSettings['kumnaa_hide_from_unread']);
+            	foreach ($hidden_boards AS $key=>$value) {
+            		$hidden_boards[$key] = (int) $value;
+            	}]]></add>
+        </operation>
+        <operation>
+            <search position="replace"><![CDATA[WHERE ' . $user_info[$see_board] . (!empty($modSettings['recycle_enable']) && $modSettings['recycle_board'] > 0 ? '
+				AND b.id_board != {int:recycle_board}' : ''),
+			array(
+				'recycle_board' => (int) $modSettings['recycle_board'],
+			)]]></search>
+            <add><![CDATA[WHERE ' . $user_info[$see_board] . (!empty($modSettings['recycle_enable']) && $modSettings['recycle_board'] > 0 ? '
+				AND b.id_board != {int:recycle_board}' : '') . '
+				AND b.id_board NOT IN ({array_int:hide_from_unread})',
+			array(
+				'recycle_board' => (int) $modSettings['recycle_board'],
+				'hide_from_unread' => $hidden_boards,
+			)]]></add>
+        </operation>
+    </file>
+
+</modification>
