@@ -1,12 +1,8 @@
-SMF-Quote-Limit-Mod
+SMF-Hide-From-Unread
 ===================
 
-Quote limiting modification for the SMF forum software.
+Recent unread topics modification for the SMF forum software.
 
-This mod simply stops the number of quotes within quotes from getting out of hand.
-
-Simply install and setup the number of embedded quotes from the Miscellaneous Modification settings page in the admin panel.
-
-Thanks to Darkmantle for starting this off.
+This mod allows you to hide high volume low value forums from the 'Recent Unread Topic' page.
 
 The latest version can be found here: https://s3-eu-west-1.amazonaws.com/kumnaa/quotelimitmod-1.1.1.zip
